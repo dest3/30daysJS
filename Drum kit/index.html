@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Drum Kit</title>
+</head>
+<body>
+    <header></header>
+    
+    <main>
+        <!-- definimos las teclas para activar las pistas utilizando su codigo unico y lo asociamos al data-key -->
+        <div class="keys">
+            <div data-key="65" class="key">
+                <kbd>A</kbd>
+                <span class="sound">clap</span>
+            </div>
+            
+            <div data-key="83" class="key">
+                <kbd>S</kbd>
+                <span class="sound">hihay</span>
+            </div>
+           
+            <div data-key="68" class="key">
+                <kbd>D</kbd>
+                <span class="sound">kick</span>
+            </div>
+            
+            <div data-key="70" class="key">
+                <kbd>F</kbd>
+                <span class="sound">openhat</span>
+            </div>
+            
+            <div data-key="90" class="key">
+                <kbd>Z</kbd>
+                <span class="sound">boom</span>
+            </div>
+            
+            <div data-key="88" class="key">
+                <kbd>X</kbd>
+                <span class="sound">ride</span>
+            </div>
+            
+            <div data-key="67" class="key">
+                <kbd>C</kbd>
+                <span class="sound">snare</span>
+            </div>
+           
+            <div data-key="86" class="key">
+                <kbd>V</kbd>
+                <span class="sound">tom</span>
+            </div>
+            
+            <div data-key="32" class="key">
+                <kbd>SPACE</kbd>
+                <span class="sound">tink</span>
+            </div>
+        </div>
+    </main>
+    <!-- asocia la pista de audio a la data-key -->
+    <audio data-key="65" src="sounds/clap.wav"></audio>
+    <audio data-key="83" src="sounds/hihat.wav"></audio>
+    <audio data-key="68" src="sounds/kick.wav"></audio>
+    <audio data-key="70" src="sounds/openhat.wav"></audio>
+    <audio data-key="90" src="sounds/boom.wav"></audio>
+    <audio data-key="88" src="sounds/ride.wav"></audio>
+    <audio data-key="67" src="sounds/snare.wav"></audio>
+    <audio data-key="86" src="sounds/tom.wav"></audio>
+    <audio data-key="32" src="sounds/tink.wav"></audio>
+
+
+    <script>
+        
+        function playsound(e){
+            
+            const audio = document.querySelector(`audio[data-key="${e.keyCode}"]`);
+            const key = document.querySelector(`.key[data-key="${e.keyCode}"]`);
+            if (!audio)return//si no encuentra audio asociado a la tecla detiene la funcion
+            audio.currentTime =0;//resetea el tiempo del audio
+            audio.play();//reproduce el audio
+            key.classList.add('playing');
+            
+        }
+        
+        function removeTransition(e){
+            if(e.propertyName !== 'transform') return; //termina si no es un evento transform
+            this.classList.remove('playing')
+        }
+
+        const keys = document.querySelectorAll('.key');
+        keys.forEach(key => key.addEventListener('transitionend', removeTransition));
+        
+        window.addEventListener('keydown',playsound );
+    </script>
+    
+    
+    <footer></footer>
+</body>
+</html>
