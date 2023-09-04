@@ -344,11 +344,34 @@ const provinciasJSON = {
 const provincias = provinciasJSON.provincias;
 
 function findmatch(wordToMatch, provincias) {
+  
   return provincias.filter(provincia => {
-    const regex = new RegExp(wordToMatch, 'gi');
-    return provincia.nombre.match(regex) || provincia.iso_nombre.match(regex); 
+    const regex = new RegExp(wordToMatch, 'gi');//busca la palabra globalmente y es insensible
+    return provincia.nombre.match(regex) || provincia.iso_nombre.match(regex); //compara si la busqueda coincidae con el nombre o el nombre_iso
   });
 }
+
+function displayMatches(){//muestra las palabras que matchean en pantalla
+  const matchArray = findmatch(this.value, provincias);//busca el mach con la funcion findmach
+  const html = matchArray.map(provincias => {//crea el array en el cual guarda los resultados coincidentes para mostrar
+    const regex = new RegExp(this.value, 'gi');//obtiene el Regex (palabra a buscar)
+    const provName = provincias.nombre.replace(regex,`<span class="h1">${this.value}</span>`);//aplica la clase de busqueda al valor escrito
+      return `
+      <li>
+        <span class="name">${provName}</span>
+        <span class ="categoria">${provincias.iso_id}</span>
+      </li>
+      `;
+
+    }).join('');
+    suggestions.innerHTML=html;
+}
+
+const searchImput = document.querySelector('.search');
+const suggestions = document.querySelector('.suggestions');
+
+searchImput.addEventListener('change', displayMatches);
+searchImput.addEventListener('keyup', displayMatches);
 
 
 </script>
