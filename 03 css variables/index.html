@@ -23,20 +23,7 @@
 
     <img class="imagen" src="5800_8_08.jpg">
 
-    <script>
-        const inputs = document.querySelectorAll('.controles input');
-
-
-        function update(){
-            const suffix = this.dataset.sizing || '';
-            
-            document.documentElement.style.setProperty(`--${this.name}`,this.value + suffix);
-        }
-
-        inputs.forEach(input => input.addEventListener('change', update));
-        inputs.forEach(input => input.addEventListener('mousemove', update));
-        
-    </script>
+    <script src="script.js"></script>
 
 </body>
 </html>
