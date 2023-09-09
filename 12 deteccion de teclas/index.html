@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Key Detection</title>
+    <script type="text/javascript" src="./cornify.js"></script>
+    <link rel="icon" href="https://fav.farm/✅" />
+  </head>
+  <body>
+    <script>
+      const pressed = [];//array en el que se guardan las teclas presionadas
+      const secretCode = "messi";//condigo que se espera
+
+      window.addEventListener("keyup", (e) => {//cada vez que se toca una tecla se pasa el evento 
+        console.log(e.key);//imprime que tecla se toco
+        pressed.push(e.key);//se agrega al aray la tecla presionada
+        //splice elimina todas las posiciones extra en el array dejando solamente la cantidad de caracteres que tenga la respuesta correcta
+        pressed.splice(
+          -secretCode.length - 1,
+          pressed.length - secretCode.length
+        );
+        if (pressed.join("").includes(secretCode)) {//compara el codigo con el array
+          console.log("DING DING!");
+          cornify_add();
+        }
+        console.log(pressed);
+      });
+    </script>
+  </body>
+</html>
